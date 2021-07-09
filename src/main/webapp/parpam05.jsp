@@ -12,6 +12,5 @@
 		나 이 : <input type = "text" name = "age"><br>
 		<input type = "submit" value = "전송">
 	</form>
-
 </body>
 </html>
