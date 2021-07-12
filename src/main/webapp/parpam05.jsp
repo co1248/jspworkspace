@@ -1,16 +1,17 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset="UTF-8">
 <title>Insert title here</title>
+<script type="text/javascript" src="param.js" charset="utf-8"></script>
 </head>
 <body>
-	<form method = "get" action="ParamServlet">
-		¾ÆÀÌµğ : <input type = "text" name = "id"><br>
-		³ª ÀÌ : <input type = "text" name = "age"><br>
-		<input type = "submit" value = "Àü¼Û">
-	</form>
+   <form method="get" action="ParamServlet" name="frm">
+      ì•„ì´ë”” : <input type="text" name="id"><br>
+      ë‚˜ ì´ : <input type="text" name="age"><br>
+      <input type="submit" value="ì „ì†¡" onclick = "return check();">
+   </form>
 </body>
 </html>

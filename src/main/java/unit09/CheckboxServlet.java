@@ -1,4 +1,4 @@
-package unit05;
+package unit09;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -9,25 +9,31 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/ParamServlet")
-public class ParamServlet extends HttpServlet {
+@WebServlet("/CheckboxServlet")
+public class CheckboxServlet extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//체크박스는 배열형태로 값이 넘어온다
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = response.getWriter();
 		
-		String id = request.getParameter("id");
-		int age = Integer.parseInt(request.getParameter("age"));
-		
+		String items[] = request.getParameterValues("item"); 
 		out.print("<html><head><title></title></head>");
 		out.print("<body>");
-		out.print("당신이 입력한 정보입니다.");
-		out.print("아이디 : ");
-		out.print(id);
-		out.print(" 나이 : ");
-		out.print(age);
+		
+		if(items == null) {
+			out.print("선택항목이 없습니다.");
+		} else {
+			for(int i = 0; i < items.length; i++) {  //for(String item : items) 
+				out.print(items[i] + "<br>");
+			}
+		}
+		
 		out.print("<br><a href = 'javascript:history.go(-1)'>돌아가기</a>");
 		out.print("</body>");
 		out.print("</html>");
+		
+		out.close();
 	}
+
 }
