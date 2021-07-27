@@ -4,6 +4,7 @@
 <%@ page import ="java.sql.ResultSet" %>
 <%@ page import ="java.sql.Statement" %>
 <%@ page import ="java.sql.Connection" %>
+<%@ page import = "mission08.ItemBean" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,7 +17,9 @@
 	Connection conn = null;
 	Statement stmt = null;
 	ResultSet rs = null;
+	ItemBean ib = new ItemBean();
 	String sql = "select * from item";
+	
 
 try {
 	String url = "jdbc:oracle:thin:@localhost:1521:XE";
@@ -28,13 +31,19 @@ try {
 	stmt = conn.createStatement();
 	
 	rs = stmt.executeQuery(sql);
+	
 	out.println("<table border = '1'>");
 	while(rs.next()) {
+		ib.setName(rs.getString(1));
+		ib.setPrice(rs.getInt(2));
+		ib.setDescription(rs.getString(3));
+		
 		out.println("<tr>");
-		out.println("<td>" + rs.getString("name") + "</td>");
-		out.println("<td>" + rs.getInt("price") + "</td>");
-		out.println("<td>" + rs.getString("description") + "</td>");
+		out.println("<td>" + ib.getName() + "</td>");
+		out.println("<td>" + ib.getPrice() + "</td>");
+		out.println("<td>" + ib.getDescription() + "</td>");
 		out.println("</tr>");
+		
 	}
 	out.println("</table>");
 	} catch (Exception e){

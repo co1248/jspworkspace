@@ -1,8 +1,13 @@
 package mission08;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class ItemBean {
     private String name;
-    private Integer price;
+    private int price;
     private String description;
 	public String getName() {
 		return name;
@@ -10,10 +15,10 @@ public class ItemBean {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public Integer getPrice() {
+	public int getPrice() {
 		return price;
 	}
-	public void setPrice(Integer price) {
+	public void setPrice(int price) {
 		this.price = price;
 	}
 	public String getDescription() {
@@ -22,5 +27,4 @@ public class ItemBean {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-    
 }
