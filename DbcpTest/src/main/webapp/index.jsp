@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>회원 관리</title>
 </head>
 <body>
 	<a href="login.do">로그인페이지로 이동</a>
