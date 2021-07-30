@@ -34,7 +34,7 @@
 			</c:if>
 			
 			<!--로그인 후 화면-->
-			<c:if test = "${!empty loginUser2 }">
+			<c:if test = "${!empty loginUser }">
 			<td>${loginUser.name }님 반갑습니다.</td>
 			<td>레벨 : ${loginUser.lev }</td>
 			<td  class="login"><a href = "logout.do">로그아웃</a></td>

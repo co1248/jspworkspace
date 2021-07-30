@@ -127,5 +127,37 @@ public class EmployeesDAO {
 		
 		return empVo;
 	}
-	
+	public int updateMember(EmployeesVO empVo) {
+		int result = -1;
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		String sql = "update employees set pass = ?, name = ?, lev = ? , gender = ?, phone = ? where id = ?";
+		
+		try {
+			
+			conn = getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, empVo.getPass());
+			pstmt.setString(2, empVo.getName());
+			pstmt.setString(3, empVo.getLev());
+			pstmt.setInt(4, empVo.getGender());
+			pstmt.setString(5, empVo.getPhone());
+			pstmt.setString(6, empVo.getId());
+			result = pstmt.executeUpdate();
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if (pstmt != null)
+					pstmt.close();
+				if (conn != null)
+					conn.close();
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return result;
+	}	
 }
