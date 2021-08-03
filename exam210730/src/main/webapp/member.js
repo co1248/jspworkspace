@@ -1,33 +1,29 @@
-function joinCheck() {
-	if (document.frm.id.value.length == 0) {
-      alert("아이디를 써주세요");
-      frm.id.focus();
+function joinCheck(){
+   if(document.frm.id.value == ""){
+      alert("아이디를 입력해주세요");
+      document.frm.id.focus();
       return false;
-    }
-	if (document.frm.password.value == "") {
-      alert("암호는 반드시 입력해야 합니다.");
-      frm.password.focus();
+   }else if(document.frm.pass.value == ""){
+      alert("비밀번호를 입력해주세요");
+      document.frm.pass.focus();
       return false;
-    }
-	if (document.frm.name.value.length == 0) {
-      alert("이름을 써주세요");
-      frm.name.focus();
+   }else if(document.frm.name.value == ""){
+      alert("이름을 입력해주세요");
+      document.frm.name.focus();
       return false;
-    }
-	if (document.frm.age.value.length == 0) {
-      alert("나이를 써주세요.");
-      frm.age.focus();
+   }else if(document.frm.age.value == ""){
+      alert("나이를 입력해주세요");
+      document.frm.age.focus();
       return false;
-    }
-	if (document.frm.gender.value.length == 0) {
-      alert("성별을 선택해주세요.");
-      frm.gender.focus();
+   }else if(document.frm.gender.value == ""){
+      alert("성별를 입력해주세요");
+      document.frm.gender.focus();
       return false;
-    }
-	if (document.frm.email.value.length == 0) {
-      alert("이메일 주소를 써주세요.");
-      frm.email.focus();
+   }else if(document.frm.email.value == ""){
+      alert("메일를 입력해주세요");
+      document.frm.email.focus();
       return false;
-    }
-    return true;
+   }else{
+      document.frm.submit();
+   }
 }

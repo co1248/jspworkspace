@@ -1,14 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import ="java.sql.Connection" %>
-<%@ page import ="javax.sql.DataSource" %>
-<%@ page import="javax.naming.InitialContext" %>
-<%@ page import="javax.naming.Context" %>
-<%@ page import ="java.sql.PreparedStatement" %>
-<%@ page import ="javax.servlet.http.HttpSession" %>
-<%
-	request.setCharacterEncoding("UTF-8");
-%>
+<%@ page import="java.sql.*"%>
+<%@ page import="javax.sql.*" %>
+<%@ page import="javax.naming.*" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,53 +11,54 @@
 </head>
 <body>
 <%
-Connection conn = null;
-PreparedStatement pstmt = null;
-String sql = "insert into member values(?, ?, ?, ?, ?, ?)";
-String id = request.getParameter("id");
-String password = request.getParameter("password");
-String  name = request.getParameter("name");
-Integer age = Integer.parseInt(request.getParameter("age"));
-String gender = request.getParameter("gender");
-String email = request.getParameter("email");
-try {
-	Context init = new InitialContext();
-	DataSource ds = (DataSource)init.lookup("java:comp/env/jdbc/oracleDB");
-	conn = ds.getConnection();
-	
-	pstmt = conn.prepareStatement(sql);
-	
-	pstmt.setString(1, id);
-	pstmt.setString(2, password);
-	pstmt.setString(3, name);
-	pstmt.setInt(4, age);
-	pstmt.setString(5, gender);
-	pstmt.setString(6, email);
-	
-	pstmt.executeUpdate();
-	
-	//HttpSession session = request.getSession();
+	request.setCharacterEncoding("UTF-8");
 
-}catch(Exception e) {
-	e.printStackTrace();
-}finally {
+	String id = request.getParameter("id");
+	String password = request.getParameter("pass");
+	String name = request.getParameter("name");
+	int age = Integer.parseInt(request.getParameter("age"));
+	String gender = request.getParameter("gender");
+	String email = request.getParameter("email");
+	
+	Connection conn=null;
+	PreparedStatement pstmt=null;
+	
 	try {
-		if (pstmt != null)
-			pstmt.close();
-		if (conn != null)
-			conn.close();
-	}catch(Exception e) {
+		
+		Context init = new InitialContext();
+		DataSource ds = (DataSource) init.lookup("java:comp/env/jdbc/oracleDB");
+  		conn = ds.getConnection();
+  		
+  		pstmt = conn.prepareStatement("insert into member values(?,?,?,?,?,?)");
+  		pstmt.setString(1, id);
+  		pstmt.setString(2, password);
+  		pstmt.setString(3, name);
+  		pstmt.setInt(4, age);
+  		pstmt.setString(5, gender);
+  		pstmt.setString(6, email);
+  		
+  		int result = pstmt.executeUpdate();
+  		
+  		if(result != 0){
+  			out.println("<script>");
+  			out.println("location.href='member_list.jsp'");
+  			out.println("</script>");
+  		}else{
+  			out.println("<script>");
+  			out.println("location.href='loginFrom.jsp'");
+  			out.println("</script>");
+  		}
+  		
+	}catch(Exception e){
 		e.printStackTrace();
+	}finally{
+		try {
+			pstmt.close();
+			conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
-}
 %>
-<%
-
-if(session.getAttribute("loginUser") != null) {
-	response.sendRedirect("loginForm.jsp");
-}
-response.sendRedirect("member_list.jsp");
-%> 
-
 </body>
 </html>

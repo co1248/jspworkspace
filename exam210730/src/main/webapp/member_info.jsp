@@ -1,71 +1,63 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import ="java.sql.*" %>
-<%@ page import ="javax.sql.*" %>
+<%@ page import="java.sql.*"%>
+<%@ page import="javax.sql.*" %>
 <%@ page import="javax.naming.*" %>
-<% request.setCharacterEncoding("UTF-8"); %>
 <%
-Connection conn = null;
-PreparedStatement pstmt = null;
-ResultSet rs = null;
-ResultSetMetaData rsmd = null; //컬럼정보 가져오기위한 메타데이터
-String sql = "select * from member where id = ?";
-try {
-	Context init = new InitialContext();
-	DataSource ds = (DataSource)init.lookup("java:comp/env/jdbc/oracleDB");
-	conn = ds.getConnection();
+	String info_id=request.getParameter("id");
 	
-	pstmt = conn.prepareStatement(sql);
-	pstmt.setString(1,request.getParameter("id"));
+	Connection conn=null;
+	PreparedStatement pstmt=null;
+	ResultSet rs=null;
 	
-	rs = pstmt.executeQuery(); //결과받기
-	rsmd = rs.getMetaData(); //메타정보
-	out.print("<table border = '1' align = 'center'>");
-	out.print("<tr align = 'center'>");
-	
-	out.print("<td>아이디:   </td>");
-	out.print("<td>rs.getString(1)</td>");
-	out.print("</tr>");
-	out.print("<tr>");
-	
-	out.print("<td>비밀번호:   </td>");
-	out.print("<td>rs.getString(2)</td>");
-	out.print("</tr>");
-	out.print("<tr>");
-	
-	out.print("<td>이름:   </td>");
-	out.print("<td>rs.getString(3)</td>");
-	out.print("</tr>");
-	out.print("<tr>");
-	
-	out.print("<td>나이:   </td>");
-	out.print("<td>rs.getInt(4)</td>");
-	out.print("</tr>");
-	out.print("<tr>");
-	
-	out.print("<td>성별:   </td>");
-	out.print("<td>rs.getString(5)</td>");
-	out.print("</tr>");
-	out.print("<tr>");
-	
-	out.print("<td>이메일:   </td>");
-	out.print("<td> rs.getString(6)</td>");
-	out.print("</tr>");
-	out.print("</table>");
-	pstmt.executeUpdate();
-	
-}catch(Exception e) {
-	e.printStackTrace();
-}finally {
 	try {
-		if (pstmt != null)
-			pstmt.close();
-		if (conn != null)
-			conn.close();
-	}catch(Exception e) {
+			Context init = new InitialContext();
+			DataSource ds = 
+				(DataSource) init.lookup("java:comp/env/jdbc/oracleDB");
+			conn = ds.getConnection();
+			
+			pstmt=conn.prepareStatement("SELECT * FROM member WHERE id=?");
+			pstmt.setString(1,info_id);
+			rs=pstmt.executeQuery();
+			
+			if(rs.next()) {%>
+			<table border=1 width=300>	
+				<tr>
+					<td>아이디 : </td><td><%=rs.getString("id") %></td>
+				</tr>
+				<tr>
+					<td>비밀번호 : </td><td><%=rs.getString("password") %></td>
+				</tr>
+				<tr>
+					<td>이름 : </td><td><%=rs.getString("name") %></td>
+				</tr>
+				<tr>
+					<td>나이 : </td><td><%=rs.getInt("age") %></td>
+				</tr>
+				<tr>
+					<td>성별 : </td><td><%=rs.getString("gender") %></td>
+				</tr>
+				<tr>
+					<td>이메일 주소 : </td><td><%=rs.getString("email") %></td>
+				</tr>
+				<tr>
+					<td colspan=2><a href="member_list.jsp">리스트 돌아가기</a></td>
+				</tr>
+			</table>
+		
+		<%} 
+			
+	}catch(Exception e){
 		e.printStackTrace();
+	}finally{
+		try {
+			rs.close();
+			pstmt.close();
+			conn.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
-}
 %>
 <!DOCTYPE html>
 <html>
@@ -74,6 +66,6 @@ try {
 <title>Insert title here</title>
 </head>
 <body>
-
+	
 </body>
 </html>
