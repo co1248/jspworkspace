@@ -30,6 +30,7 @@
 			<td></td>
 			<td class="login"><a href = "login.do">로그인</a></td>
 			<td style = "width:300px">사원등록<br><span style = "color:red">(관리자로 로그인 후 사용 가능)</span></td>
+			<td style = "width:300px">사원목록<br><span style = "color:red">(관리자로 로그인 후 사용 가능)</span></td>
 			<td>마이페이지<br><span style = "color:red">(로그인 후 사용 가능)</span></td>
 			</c:if>
 			
@@ -44,6 +45,14 @@
 			    </c:when>
 			    <c:when test = "${result == 3 }">
 			        <td style = "width:300px">사원등록<br><span style = "color:red">(관리자로 로그인 후 사용 가능)</span></td>
+			    </c:when>
+			</c:choose>
+			<c:choose>
+			    <c:when test = "${result == 2 }">
+			        <td class="login"><a href = "list.do">사원목록</a></td>
+			    </c:when>
+			    <c:when test = "${result == 3 }">
+			        <td style = "width:300px">사원목록<br><span style = "color:red">(관리자로 로그인 후 사용 가능)</span></td>
 			    </c:when>
 			</c:choose>
 			<td  class="login"><a href = "mypage.do">마이페이지</a></td>

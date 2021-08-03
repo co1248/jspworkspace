@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -159,5 +160,80 @@ public class EmployeesDAO {
 		}
 		
 		return result;
-	}	
+	}
+	public void insertMember(EmployeesVO empVo) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		String sql = "insert into employees values (?,?,?,?,sysdate,?,?)";
+		
+		try {
+			
+			conn = getConnection();
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, empVo.getId());
+			pstmt.setString(2, empVo.getPass());
+			pstmt.setString(3, empVo.getName());
+			pstmt.setString(4, empVo.getLev());
+			pstmt.setInt(5, empVo.getGender());
+			pstmt.setString(6, empVo.getPhone());
+
+			pstmt.executeUpdate();
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if (pstmt != null)
+					pstmt.close();
+				if (conn != null)
+					conn.close();
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+	}
+	public ArrayList<EmployeesVO> getListAll() {
+		EmployeesVO empVo = null;
+		ArrayList<EmployeesVO> list =  new ArrayList<EmployeesVO>();
+		String sql = "select * from employees";
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			
+			conn = getConnection();
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				empVo = new EmployeesVO();
+				empVo.setId(rs.getString("id"));
+				empVo.setPass(rs.getString("pass"));
+				empVo.setName(rs.getString("name"));
+				empVo.setLev(rs.getString("lev"));
+				empVo.setEnter(rs.getDate("enter"));
+				empVo.setGender(rs.getInt("gender"));
+				empVo.setPhone(rs.getString("phone"));
+				
+				list.add(empVo);
+			}
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rs != null)
+					rs.close();
+				if (pstmt != null)
+					pstmt.close();
+				if (conn != null)
+					conn.close();
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return list;
+	}
 }
