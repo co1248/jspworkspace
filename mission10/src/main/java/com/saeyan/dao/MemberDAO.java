@@ -6,25 +6,25 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.saeyan.dto.ProductVO;
+import com.saeyan.dto.MemberVO;
 
 import util.DBManager;
 
-public class ProductDAO {
-	private ProductDAO() {
+public class MemberDAO {
+	private MemberDAO() {
 	}
 	
-	private static ProductDAO instance = new ProductDAO();
+	private static MemberDAO instance = new MemberDAO();
 	
-	public static ProductDAO getInstance() {
+	public static MemberDAO getInstance() {
 		return instance;
 	}
 	
 	//c Read u d
-	public List<ProductVO> selectAllProducts() {
+	public List<MemberVO> selectAllMembers() {
 		//최근 등록한 상품 먼저 출력하기
-		String sql = "select * from product order by code desc";
-		List<ProductVO> list = new ArrayList<ProductVO>();
+		String sql = "select * from member order by code desc";
+		List<MemberVO> list = new ArrayList<MemberVO>();
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -33,13 +33,15 @@ public class ProductDAO {
 			pstmt = conn.prepareStatement(sql);
 			rs= pstmt.executeQuery();
 			while(rs.next()) {
-				ProductVO pVo = new ProductVO();
-				pVo.setCode(rs.getInt("code"));
-				pVo.setName(rs.getString("name"));
-				pVo.setPrice(rs.getInt("price"));
-				pVo.setPictureUrl(rs.getString("pictureUrl"));
-				pVo.setDescription(rs.getString("description"));
-				list.add(pVo);
+				MemberVO mVo = new MemberVO();
+				mVo.setCode(rs.getInt("code"));
+				mVo.setTitle(rs.getString("title"));
+				mVo.setPrice(rs.getInt("price"));
+				mVo.setDirector(rs.getString("director"));
+				mVo.setActor(rs.getString("actor"));
+				mVo.setPoster(rs.getString("poster"));
+				mVo.setSynopsis(rs.getString("synopsis"));
+				list.add(mVo);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -49,17 +51,19 @@ public class ProductDAO {
 		return list;
 	}
 	//create r u d
-	public void insertProducts(ProductVO pVo) {
-		String sql = "insert into product VALUES (product_seq.nextval, ?, ?, ?, ?)";
+	public void insertMembers(MemberVO mVo) {
+		String sql = "insert into member VALUES (member__seq.nextval, ?, ?, ?, ?, ?, ?)";
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		try {
 			conn = DBManager.getConnection();
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, pVo.getName());
-			pstmt.setInt(2, pVo.getPrice());
-			pstmt.setString(3, pVo.getPictureUrl());
-			pstmt.setString(4, pVo.getDescription());
+			pstmt.setString(1, mVo.getTitle());
+			pstmt.setInt(2, mVo.getPrice());
+			pstmt.setString(3, mVo.getDirector());
+			pstmt.setString(4, mVo.getActor());
+			pstmt.setString(5, mVo.getPoster());
+			pstmt.setString(6, mVo.getSynopsis());
 			pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -68,9 +72,9 @@ public class ProductDAO {
 		}
 	}
 	//c Read u d
-    public ProductVO selectProductByCode(String code) {
-    	String sql = "select * from product where code = ?";
-    	ProductVO pVo = null;
+    public MemberVO selectMemberByCode(String code) {
+    	String sql = "select * from member where code = ?";
+    	MemberVO mVo = null;
     	try {
     		Connection conn = null;
 			PreparedStatement pstmt = null;
@@ -81,12 +85,14 @@ public class ProductDAO {
 				pstmt.setString(1, code);
 				rs= pstmt.executeQuery();
 				if(rs.next()) {
-					pVo = new ProductVO();
-					pVo.setCode(rs.getInt("code"));
-					pVo.setName(rs.getString("name"));
-					pVo.setPrice(rs.getInt("price"));
-					pVo.setPictureUrl(rs.getString("pictureUrl"));
-					pVo.setDescription(rs.getString("description"));
+					mVo = new MemberVO();
+					mVo.setCode(rs.getInt("code"));
+					mVo.setTitle(rs.getString("title"));
+					mVo.setPrice(rs.getInt("price"));
+					mVo.setDirector(rs.getString("director"));
+					mVo.setActor(rs.getString("actor"));
+					mVo.setPoster(rs.getString("poster"));
+					mVo.setSynopsis(rs.getString("synopsis"));
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -96,21 +102,23 @@ public class ProductDAO {
     	} catch (Exception e) {
 			e.printStackTrace();
 		}
-    	return pVo;
+    	return mVo;
     }
   //c r Update d
-  	public void updateProduct(ProductVO pVo) {
-  		String sql = "update product set name = ?, price = ?, pictureUrl = ?, description = ? where code = ?";
+  	public void updateMember(MemberVO mVo) {
+  		String sql = "update member set title = ?, price = ?, director = ?, actor = ?, synopsis = ?, poster = ? where code = ?";
   		Connection conn = null;
   		PreparedStatement pstmt = null;
   		try {
   			conn = DBManager.getConnection();
   			pstmt = conn.prepareStatement(sql);
-  			pstmt.setString(1, pVo.getName());
-  			pstmt.setInt(2, pVo.getPrice());
-  			pstmt.setString(3, pVo.getPictureUrl());
-  			pstmt.setString(4, pVo.getDescription());
-  			pstmt.setInt(5, pVo.getCode());
+  			pstmt.setString(1, mVo.getTitle());
+  			pstmt.setInt(2, mVo.getPrice());
+  			pstmt.setString(3, mVo.getDirector());
+  			pstmt.setString(4, mVo.getActor());
+  			pstmt.setString(5, mVo.getSynopsis());
+  			pstmt.setString(6, mVo.getPoster());
+  			pstmt.setInt(7, mVo.getCode());
   			pstmt.executeUpdate();//쿼리문 실행한다.
   		} catch (Exception e) {
   			e.printStackTrace();
@@ -119,8 +127,8 @@ public class ProductDAO {
   		}
   	}
   //c r u Delete
- 	public void deleteProduct(String code) {
-  		String sql = "delete product where code = ?";
+ 	public void deleteMember(String code) {
+  		String sql = "delete member where code = ?";
   		Connection conn = null;
   		PreparedStatement pstmt = null;
   		try {

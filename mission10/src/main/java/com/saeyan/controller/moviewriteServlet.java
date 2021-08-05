@@ -12,15 +12,15 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
-import com.saeyan.dao.ProductDAO;
-import com.saeyan.dto.ProductVO;
+import com.saeyan.dao.MemberDAO;
+import com.saeyan.dto.MemberVO;
 
-@WebServlet("/productWrite.do")
-public class ProductWriteServlet extends HttpServlet {
+@WebServlet("/moviewrite.do")
+public class moviewriteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
   
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher dispatcher = request.getRequestDispatcher("product/productWrite.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("movie/moviewrite.jsp");
 		dispatcher.forward(request, response);
 	}
 
@@ -29,27 +29,31 @@ public class ProductWriteServlet extends HttpServlet {
 		response.setContentType("text/html;charset=UTF-8");
 		
 		ServletContext context = getServletContext();
-		String path = context.getRealPath("upload");
+		String path = context.getRealPath("images");
 		String encType = "UTF-8";
 		int sizeLimit = 20 * 1024 * 1024;
 		
 		MultipartRequest multi = new MultipartRequest(request, path, sizeLimit,
 				encType, new DefaultFileRenamePolicy());
 		
-		String name = multi.getParameter("name");
+		String title = multi.getParameter("title");
 		int price = Integer.parseInt(multi.getParameter("price"));
-		String description = multi.getParameter("description");
-		String pictureUrl = multi.getFilesystemName("pictureUrl");
+		String director = multi.getParameter("director");
+		String actor = multi.getParameter("actor");
+		String synopsis = multi.getParameter("synopsis");
+		String poster = multi.getFilesystemName("poster");
 		
-		ProductVO pVo = new ProductVO();
-		pVo.setName(name);
-		pVo.setPrice(price);
-		pVo.setDescription(description);
-		pVo.setPictureUrl(pictureUrl);
+		MemberVO mVo = new MemberVO();
+		mVo.setTitle(title);
+		mVo.setPrice(price);
+		mVo.setDirector(director);
+		mVo.setActor(actor);
+		mVo.setSynopsis(synopsis);
+		mVo.setPoster(poster);
 		
-		ProductDAO pDao = ProductDAO.getInstance();
-		pDao.insertProducts(pVo);
+		MemberDAO mDao = MemberDAO.getInstance();
+		mDao.insertMembers(mVo);
 		
-		response.sendRedirect("productList.do");
+		response.sendRedirect("movielist.do");
 	}
 }

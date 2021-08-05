@@ -15,12 +15,18 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import com.saeyan.dao.ProductDAO;
 import com.saeyan.dto.ProductVO;
 
-@WebServlet("/productWrite.do")
-public class ProductWriteServlet extends HttpServlet {
+@WebServlet("/productUpdate.do")
+public class ProductUpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-  
+   
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher dispatcher = request.getRequestDispatcher("product/productWrite.jsp");
+		String code = request.getParameter("code");
+		
+		ProductDAO pDao = ProductDAO.getInstance();
+		ProductVO pVo = pDao.selectProductByCode(code);		
+		
+		request.setAttribute("product", pVo);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("product/productUpdate.jsp");
 		dispatcher.forward(request, response);
 	}
 
@@ -36,19 +42,24 @@ public class ProductWriteServlet extends HttpServlet {
 		MultipartRequest multi = new MultipartRequest(request, path, sizeLimit,
 				encType, new DefaultFileRenamePolicy());
 		
+		String code = multi.getParameter("code");
 		String name = multi.getParameter("name");
 		int price = Integer.parseInt(multi.getParameter("price"));
 		String description = multi.getParameter("description");
-		String pictureUrl = multi.getFilesystemName("pictureUrl");
+		String pictureUrl = multi.getParameter("pictureUrl");
+		if(pictureUrl == null) {
+			pictureUrl =  multi.getParameter("nonmakeImg");
+		}
 		
 		ProductVO pVo = new ProductVO();
+		pVo.setCode(Integer.parseInt(code));
 		pVo.setName(name);
 		pVo.setPrice(price);
 		pVo.setDescription(description);
 		pVo.setPictureUrl(pictureUrl);
 		
 		ProductDAO pDao = ProductDAO.getInstance();
-		pDao.insertProducts(pVo);
+		pDao.updateProduct(pVo);
 		
 		response.sendRedirect("productList.do");
 	}
