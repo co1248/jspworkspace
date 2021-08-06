@@ -40,3 +40,26 @@ a:HOVER {
 	text-decoration: underline; /* นุมู */
 	color: green; /* ฑÛ ป๖ป๓ */
 }
+
+.sample_image  img {
+    -webkit-transform:scale(1);
+    -moz-transform:scale(1);
+    -ms-transform:scale(1); 
+    -o-transform:scale(1);  
+    transform:scale(1);
+    -webkit-transition:.3s;
+    -moz-transition:.3s;
+    -ms-transition:.3s;
+    -o-transition:.3s;
+    transition:.3s;
+}
+.sample_image:hover img {
+    -webkit-transform:scale(1.2);
+    -moz-transform:scale(1.2);
+    -ms-transform:scale(1.2);   
+    -o-transform:scale(1.2);
+    transform:scale(1.2);
+}
+
+a.thumb a:hover{overflow:visible;z-index:1000;border:none;}
+a.thumb a:hover img{border:1px solid #999;background:#fff;padding:2px;}		

@@ -17,13 +17,16 @@
 			<a href = "moviewrite.do">정보등록</a>
 		</td>
 	</tr>
-	<tr><th>제목</th><th>감독</th><th>배우</th><th>가격</th><th>수정</th><th>삭제</th></tr>
+	<tr><th>제목</th><th>감독</th><th>배우</th><th>가격</th><th>파일</th><th>수정</th><th>삭제</th></tr>
 	<c:forEach var="member" items="${movielist}">
 	<tr class = "record">
-		<td>${member.title } </td>
+		<td>
+		    <a href = "moviedetail.do?code=${member.code}">${member.title }</a>
+		</td>
 		<td>${member.director } </td>
 		<td>${member.actor } </td>
 		<td>${member.price } 원 </td>
+		<td align = "center"><a  class="thumb" href = "moviedown.do?file_name=${member.poster}"><img src="images/${member.poster }" style = "width:20px; height:20px; "></a></td>
 		<td>
 			<a href = "movieupdate.do?code=${member.code}">정보 수정</a>
 		</td>

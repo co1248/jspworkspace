@@ -34,7 +34,7 @@ public class movieupdateServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=UTF-8");
 		
-		System.out.println(request.getParameter("title"));
+		System.out.println(request.getParameter("poster"));
 		
 		ServletContext context = getServletContext();
 		String path = context.getRealPath("images");
@@ -49,16 +49,14 @@ public class movieupdateServlet extends HttpServlet {
 		int price = Integer.parseInt(multi.getParameter("price"));
 		String director = multi.getParameter("director");
 		String actor = multi.getParameter("actor");
-		String poster = multi.getParameter("poster");
+		String poster = multi.getFilesystemName("poster");
 		if(poster == null) {
 			poster =  multi.getParameter("nonmakeImg");
 		}
 		String synopsis = multi.getParameter("synopsis");
 		
 		
-		System.out.println(title);
-		
-		
+		System.out.println(poster);
 		
 		MemberVO mVo = new MemberVO();
 		mVo.setCode(Integer.parseInt(code));
