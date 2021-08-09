@@ -20,7 +20,7 @@
 					<img src="images/noimage.gif">
 				</c:when>
 				<c:otherwise>
-					<img src="images/${member.poster }">
+					<img src="images/${member.poster }" width = "200" height = "300">
 				</c:otherwise>
 			</c:choose>
 		</td>
@@ -36,11 +36,11 @@
 				</tr>
 				<tr>
 					<th>감 독 </th>
-					<td>${member.director }원</td>
+					<td>${member.director }</td>
 				</tr>
 				<tr>
 					<th>배 우 </th>
-					<td>${member.actor }원</td>
+					<td>${member.actor }</td>
 				</tr>
 				<tr>
 					<th>시놉시스 </th>
@@ -57,7 +57,7 @@
 </table>
 <br>
 <input type = "hidden" name = "code" value = "${member.code }">
-<input type = "button" value = "글쓰기" onclick = "location.href='moviewrite.do'">
+<input type = "button" value = "정보등록" onclick = "location.href='moviewrite.do'">
 <input type = "button" value = "목록" onclick = "location.href='movielist.do'">
 </form>
 </div>
