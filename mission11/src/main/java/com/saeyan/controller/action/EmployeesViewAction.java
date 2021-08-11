@@ -1,31 +1,30 @@
 package com.saeyan.controller.action;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.saeyan.dao.BoardDAO;
-import com.saeyan.dto.BoardVO;
+import com.saeyan.dao.EmployeesDAO;
+import com.saeyan.dto.EmployeesVO;
 
-public class BoardUpdateFormAction implements Action {
+public class EmployeesViewAction implements Action {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String url = "/board/boardUpdate.jsp";
+		String url = "/employees/employeesView.jsp";
 		
-		String num = request.getParameter("num");
+		String id = request.getParameter("id");
 		
-		BoardDAO bDao = BoardDAO.getInstance();
+		EmployeesDAO eDao = EmployeesDAO.getInstance();
 		
-		bDao.updateReadCount(num);
+		EmployeesVO eVo = eDao.selectOneEmployeeById(id);
 		
-		BoardVO bVo = bDao.selectOneBoardByNum(num);
-		
-		request.setAttribute("board", bVo);
+		request.setAttribute("employees", eVo);
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(url);
 		dispatcher.forward(request, response);

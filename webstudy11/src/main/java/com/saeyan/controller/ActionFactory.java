@@ -28,8 +28,7 @@ public class ActionFactory {
 		System.out.println("ActionFactory : " + command);
 		
 		if(command.equals("board_list")) {
-			//梓端持失
-			action = new BoardListAction();
+			action = new BoardListAction();//梓端持失
 		} else if(command.equals("board_write_form")) {
 			action = new BoardWriteFormAction();
 		} else if(command.equals("board_write")) {

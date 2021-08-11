@@ -7,25 +7,23 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.saeyan.dao.BoardDAO;
-import com.saeyan.dto.BoardVO;
+import com.saeyan.dao.EmployeesDAO;
+import com.saeyan.dto.EmployeesVO;
 
-public class BoardUpdateFormAction implements Action {
+public class EmployeesUpdateFormAction implements Action {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String url = "/board/boardUpdate.jsp";
+		String url = "/employees/employeesUpdate.jsp";
 		
-		String num = request.getParameter("num");
+		String id = request.getParameter("id");
 		
-		BoardDAO bDao = BoardDAO.getInstance();
+		EmployeesDAO eDao = EmployeesDAO.getInstance();
+	
+		EmployeesVO eVo = eDao.selectOneEmployeeById(id);
 		
-		bDao.updateReadCount(num);
-		
-		BoardVO bVo = bDao.selectOneBoardByNum(num);
-		
-		request.setAttribute("board", bVo);
+		request.setAttribute("employees", eVo);
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(url);
 		dispatcher.forward(request, response);

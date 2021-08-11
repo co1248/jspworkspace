@@ -6,20 +6,19 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.saeyan.dao.BoardDAO;
-import com.saeyan.dto.BoardVO;
+import com.saeyan.dao.EmployeesDAO;
+import com.saeyan.dto.EmployeesVO;
 
-public class BoardDeleteAction implements Action {
+public class EmployeesDeleteAction implements Action {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String num = request.getParameter("num");	
+		String id = request.getParameter("id");	
 		
-		BoardDAO bDao = BoardDAO.getInstance();
-		bDao.deleteBoard(num);
+		EmployeesDAO eDao = EmployeesDAO.getInstance();
+		eDao.deleteEmployee(id);
 		
-		//new BoardListAction().execute(request, response);
-		response.sendRedirect("BoardServlet?command=board_list");
+		response.sendRedirect("EmployeesServlet?command=employees_list");
 	}
 }
