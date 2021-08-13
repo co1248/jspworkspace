@@ -2,6 +2,7 @@ package com.nonage.controller;
 
 import com.nonage.controller.action.Action;
 import com.nonage.controller.action.IndexAction;
+import com.nonage.controller.action.ProductDetailAction;
 
 public class ActionFactory {
 	//教臂沛菩畔
@@ -22,7 +23,7 @@ public class ActionFactory {
 		if(command.equals("index")) {
 			action = new IndexAction();//按眉积己
 		} else if(command.equals("product_detail")) {
-			
+			action = new ProductDetailAction();	
 		}
 
 		return action;
