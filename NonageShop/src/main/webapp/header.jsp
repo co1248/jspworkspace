@@ -8,6 +8,7 @@
 <meta charset="UTF-8">
 <title>Nonage Shop</title>
 <link rel = "stylesheet" type = "text/css" href = "css/shopping.css">
+<script type = "text/javascript" src = "member/member.js"></script>
 </head>
 <body>
     <div id="wrap">

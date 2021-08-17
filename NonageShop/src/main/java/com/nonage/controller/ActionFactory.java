@@ -1,8 +1,10 @@
 package com.nonage.controller;
 
 import com.nonage.controller.action.Action;
+import com.nonage.controller.action.ContractAction;
 import com.nonage.controller.action.IndexAction;
 import com.nonage.controller.action.ProductDetailAction;
+import com.nonage.controller.action.ProductKindAction;
 
 public class ActionFactory {
 	//教臂沛菩畔
@@ -24,6 +26,10 @@ public class ActionFactory {
 			action = new IndexAction();//按眉积己
 		} else if(command.equals("product_detail")) {
 			action = new ProductDetailAction();	
+		} else if(command.equals("category")) {
+			action = new ProductKindAction();	
+		} else if(command.equals("contract")) {
+			action = new ContractAction();	
 		}
 
 		return action;
