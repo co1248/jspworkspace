@@ -28,5 +28,4 @@ public class BoardListAction implements Action {
 	    forward.setPath("./board/qna_board_list.jsp");
 	    return forward;
 	}
-
 }

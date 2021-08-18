@@ -1,7 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
-<%@ taglib uri = "http://java.sun.com/jsp/jstl/fmt" prefix = "fmt" %>
 <%@ page import="net.board.db.*" %> 
 <% BoardBean board = (BoardBean)request.getAttribute("boarddata"); %>
 <!DOCTYPE html>
@@ -9,36 +7,36 @@
 <head>
 <meta charset="UTF-8">
 <title>MVC게시판</title>
-<style>
-	td {
-		text-align : center;
-	}
-</style>
 </head>
 <body>
-<div id = "wrap" align = "center">
-	<table  width="500px" >
-	    <tr>
-	        <td colspan = "2" style = "border:white; text-align:center" >
-			    <p>MVC게시판</p>
-		    </td>
+	<table width="500px">
+	    <tr align = "center" valign = "middle">
+	        <td colspan = "5">MVC게시판</td>
 		</tr>
 		<tr>
-			<th>제목</th>
-			<td><%=board.getSubject()%></td>
+			<td height = "16"><div align = "center">제 목&nbsp;&nbsp;</div></td>
+			<td height = "16"><%=board.getSubject() %></td>
+		</tr>
+		<tr bgcolor = "cccccc">
+			<td colspan = "2" style = "height : 1px"></td>
 		</tr>
 		<tr>
-			<th>내용</th>
-			<td><%=board.getContent() %></td>
+			<td height = "250"><div align = "center">내 용&nbsp;&nbsp;</div></td>
+			<td height = "250"><%=board.getContent( )%></td>
 		</tr>
 		<tr>
-			<th>첨부파일</th>
-			<td><%=board.getFile() %></td>
+			<td height = "16"><div align = "center">첨부파일</div></td>
+			<td height = "16"><%=board.getFile() %></td>
+		</tr>
+		<tr bgcolor = "cccccc">
+			<td colspan = "2" style = "height : 1px"></td>
 		</tr>
 		<tr>
-			<td colspan = "2"><a href="./BoardList.bo">[목록]</a></td>
+			<td colspan = "2">&nbsp;</td>
+		</tr>
+		<tr align = "center" valign = "middle">
+			<td colspan = "5"><a href="./BoardList.bo">[목록]</a></td>
 		</tr>
 	</table>
-</div>
 </body>
 </html>

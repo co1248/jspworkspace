@@ -59,6 +59,4 @@ public class BoardBean {
 	public void setDate(Date date) {
 		this.date = date;
 	}
-	
-	
 }

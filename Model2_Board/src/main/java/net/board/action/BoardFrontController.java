@@ -18,25 +18,25 @@ import javax.servlet.http.HttpServletResponse;
 		 ActionForward forward=null;
 		 Action action=null;
 		
-		 if(command.equals("/BoardList.bo")){ 
+		 if(command.equals("/BoardList.bo")) { 
              action = new BoardListAction(); 
              try{ 
-                 forward=action.execute(request, response); 
+                 forward = action.execute(request, response); 
              }catch(Exception e){ 
                  e.printStackTrace(); 
              } 
-         } else if(command.equals("/BoardWrite.bo")){ 
-             forward=new ActionForward(); 
+         } else if(command.equals("/BoardWrite.bo")) { 
+             forward = new ActionForward(); 
              forward.setRedirect(false); 
              forward.setPath("./board/qna_board_write.jsp"); 
          } else if(command.equals("/BoardAddAction.bo")){ 
              action  = new BoardAddAction(); 
              try { 
-                 forward=action.execute(request, response ); 
+                 forward=action.execute(request, response); 
              } catch (Exception e) { 
                  e.printStackTrace(); 
              } 
-         } else if(command.equals("/BoardDetailAction.bo")){ 
+         } else if(command.equals("/BoardDetailAction.bo")) { 
              action = new BoardDetailAction(); 
              try{ 
                  forward=action.execute(request, response); 
@@ -50,7 +50,6 @@ import javax.servlet.http.HttpServletResponse;
 	            }else{
 	                RequestDispatcher dispatcher=request.getRequestDispatcher(forward.getPath());
 	                dispatcher.forward(request,response);                  
-	                System.out.print(forward.getPath());
 	            }
 	        }        
 	    } 

@@ -62,11 +62,14 @@ public class BoardDAO {
 			rs= pstmt.executeQuery(sql);
 			while(rs.next()) {
 				BoardBean board = new BoardBean(); 
-				board.setNum(rs.getInt("BOARD_NUM"));
-				board.setSubject(rs.getString("BOARD_SUBJECT"));
-				board.setName(rs.getString("BOARD_NAME"));
-				board.setDate(rs.getDate("BOARD_DATE"));
-				board.setReadcount(rs.getInt("BOARD_READCOUNT"));
+				board.setNum(rs.getInt("BOARD_NUM")); 
+                board.setName(rs.getString("BOARD_NAME")); 
+                board.setPass(rs.getString("BOARD_PASS")); 
+                board.setSubject(rs.getString("BOARD_SUBJECT")); 
+                board.setContent(rs.getString("BOARD_CONTENT")); 
+                board.setFile(rs.getString("BOARD_FILE")); 
+                board.setReadcount(rs.getInt("BOARD_READCOUNT")); 
+                board.setDate(rs.getDate("BOARD_DATE")); ;
 				list.add(board);
 			}
 		} catch (Exception e) {
@@ -101,7 +104,6 @@ public class BoardDAO {
                 board.setReadcount(rs.getInt("BOARD_READCOUNT")); 
                 board.setDate(rs.getDate("BOARD_DATE")); 
             } 
-            return board; 
         }catch(Exception e){ 
         	e.printStackTrace();
         }finally{ 
@@ -110,7 +112,6 @@ public class BoardDAO {
             if(con != null) try{con.close();}catch(SQLException e){e.printStackTrace();} 
         } 
         return board; 
-		
 	}
 	
 	//±Û µî·Ï
@@ -163,7 +164,6 @@ public class BoardDAO {
 		} catch(SQLException e){ 
 			e.printStackTrace();
 		} finally{ 
-			if(rs != null) try{rs.close();}catch(SQLException e){e.printStackTrace();} 
             if(pstmt != null) try{pstmt.close();}catch(SQLException e){e.printStackTrace();} 
             if(con != null) try{con.close();}catch(SQLException e){e.printStackTrace();}  
 		} 

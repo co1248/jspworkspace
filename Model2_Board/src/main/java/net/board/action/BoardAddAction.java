@@ -1,9 +1,5 @@
 package net.board.action;
 
-import java.io.PrintWriter;
-
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -21,14 +17,15 @@ public class BoardAddAction  implements Action{
 		 BoardDAO boardDao=new BoardDAO(); 
          BoardBean boarddata=new BoardBean(); 
          ActionForward forward=new ActionForward(); 
-         boolean result = false;
-          
+         
          String savePath = "/boardupload";
- 		int uploadFileSizeLimit = 5*1024*1024;
- 		String encType = "UTF-8";
- 		
- 		String realPath = request.getRealPath(savePath);
-
+         String realPath = request.getRealPath(savePath);
+         
+ 		 int uploadFileSizeLimit = 5*1024*1024;
+ 		 
+ 		 boolean result = false;
+ 		 
+ 		 String encType = "UTF-8";
  		
  		try {
  			MultipartRequest multi = new MultipartRequest (
@@ -44,12 +41,19 @@ public class BoardAddAction  implements Action{
             boarddata.setContent(multi.getParameter("content"));
             boarddata.setFile(multi.getFilesystemName((String)multi.getFileNames().nextElement())); 
             result=boardDao.boardInsert(boarddata);
-             
+            
+            if(result == false) {
+            	System.out.println("게시판 등록 실패");
+            	return null;
+            }
+            System.out.println("게시판 등록 완료");
+            
             forward.setRedirect(true);
             forward.setPath("./BoardList.bo");
+            return forward;
         } catch (Exception e) {
             e.printStackTrace();
-        }        
-        return forward;
+        }
+ 		return null;
     }
 }

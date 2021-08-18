@@ -12,20 +12,23 @@ public class BoardDetailAction implements Action {
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		// TODO Auto-generated method stub
 		
-		request.setCharacterEncoding("UTF-8"); 
-        
         BoardDAO boardDao = new BoardDAO(); 
         BoardBean boarddata=new BoardBean(); 
             
         int num=Integer.parseInt(request.getParameter("num")); 
         boardDao.setReadCountUpdate(num); 
 	    boarddata = boardDao.getDetail(num);
-	   
+	  
+	    if(boarddata == null) {
+	    	System.out.println("상세보기 실패");
+	    	return null;
+	    }
+	    System.out.println("상세보기 성공");
 	    request.setAttribute("boarddata", boarddata); 
 	    ActionForward forward = new ActionForward(); 
 	    forward.setRedirect(false); 
-	    forward.setPath("./board/qna_board_view.jsp"); 
+	    forward.setPath("./board/qna_board_view.jsp");
+	    
 	    return forward; 
 	}
-
 }
