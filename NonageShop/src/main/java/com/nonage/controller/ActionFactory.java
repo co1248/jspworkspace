@@ -25,7 +25,7 @@ public class ActionFactory {
 		System.out.println("ActionFactory : " + command);
 		
 		if(command.equals("index")) {
-			action = new IndexAction();/객체생성
+			action = new IndexAction();//객체생성
 		} else if(command.equals("product_detail")) {
 			action = new ProductDetailAction();	
 		} else if(command.equals("category")) {
