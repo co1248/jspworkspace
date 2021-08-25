@@ -15,7 +15,7 @@ public class NonageServlet extends HttpServlet {
      
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String command = request.getParameter("command");
-		System.out.println("NonageServlet¿¡¼­ ¿äÃ»À» ¹ŞÀ½À» È®ÀÎ : " + command);
+		System.out.println("NonageServletì—ì„œ ìš”ì²­ì„ ë°›ìŒì„ í™•ì¸ : " + command);
 		
 		ActionFactory af = ActionFactory.getInstance();
 		Action action = af.getAction(command);

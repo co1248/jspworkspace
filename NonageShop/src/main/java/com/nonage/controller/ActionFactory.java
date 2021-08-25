@@ -2,12 +2,14 @@ package com.nonage.controller;
 
 import com.nonage.controller.action.Action;
 import com.nonage.controller.action.ContractAction;
+import com.nonage.controller.action.IdCheckFormAction;
 import com.nonage.controller.action.IndexAction;
+import com.nonage.controller.action.JoinFormAction;
 import com.nonage.controller.action.ProductDetailAction;
 import com.nonage.controller.action.ProductKindAction;
 
 public class ActionFactory {
-	//ΩÃ±€≈Ê∆–≈œ
+	//Ïã±Í∏ÄÌÜ§Ìå®ÌÑ¥
 	private static ActionFactory instance = new ActionFactory();
 	
 	private ActionFactory() {
@@ -23,13 +25,17 @@ public class ActionFactory {
 		System.out.println("ActionFactory : " + command);
 		
 		if(command.equals("index")) {
-			action = new IndexAction();//∞¥√ºª˝º∫
+			action = new IndexAction();/Í∞ùÏ≤¥ÏÉùÏÑ±
 		} else if(command.equals("product_detail")) {
 			action = new ProductDetailAction();	
 		} else if(command.equals("category")) {
 			action = new ProductKindAction();	
 		} else if(command.equals("contract")) {
 			action = new ContractAction();	
+		} else if(command.equals("join_form")) {
+			action = new JoinFormAction();	
+		} else if(command.equals("id_check_form")) {
+			action = new IdCheckFormAction();	
 		}
 
 		return action;
