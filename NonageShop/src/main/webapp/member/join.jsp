@@ -18,7 +18,7 @@
             <input type = "password" name = "pwd"><br>
             
             <label>Retype Password</label>
-            <input type = "password" name = "pwdcheck"><br>
+            <input type = "password" name = "pwdCheck"><br>
             
             <label>Name</label>
             <input type = "text" name = "name"><br>
@@ -41,7 +41,8 @@
         <div class = "clear"></div>
         
         <div id = "buttons">
-            <input type = "button" value = "회원가입" class = "submit" onclick = "go_save()">        
+            <input type = "button" value = "회원가입" class = "submit" onclick = "go_save()">  
+            <input type = "reset" value = "취소" class = "cansel">   
         </div>
     </form>
 </article>
