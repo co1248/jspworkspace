@@ -42,7 +42,7 @@
         
         <div id = "buttons">
             <input type = "button" value = "회원가입" class = "submit" onclick = "go_save()">  
-            <input type = "reset" value = "취소" class = "cansel">   
+            <input type = "reset" value = "취소" class = "cancel">   
         </div>
     </form>
 </article>
