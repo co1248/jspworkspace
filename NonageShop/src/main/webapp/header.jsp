@@ -9,6 +9,7 @@
 <title>Nonage Shop</title>
 <link rel = "stylesheet" type = "text/css" href = "css/shopping.css">
 <script type = "text/javascript" src = "member/member.js?ver=1"></script>
+<script type = "text/javascript" src = "mypage/mypage.js?ver=1"></script>
 </head>
 <body>
     <div id="wrap">
