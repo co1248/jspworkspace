@@ -1,6 +1,7 @@
 package com.nonage.controller;
 
 import com.nonage.controller.action.Action;
+import com.nonage.controller.action.CartDeleteAction;
 import com.nonage.controller.action.CartInsertAction;
 import com.nonage.controller.action.CartListAction;
 import com.nonage.controller.action.ContractAction;
@@ -59,6 +60,8 @@ public class ActionFactory {
 			action = new CartInsertAction();	
 		} else if(command.equals("cart_list")) {
 			action = new CartListAction();	
+		} else if(command.equals("cart_delete")) {
+			action = new CartDeleteAction();	
 		}
 
 		return action;
