@@ -68,21 +68,21 @@ public class CartDAO {
 		}
 		return cartList;	
 	}
-	
 	public void deleteCart(int cseq) {
-		String sql = "delete cart where cseq = ?";
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		
-		try {
-			  conn = DBManager.getConnection();
-		      pstmt = conn.prepareStatement(sql);
-		      pstmt.setInt(1, cseq);
-		      pstmt.executeUpdate();
-			} catch (Exception e) {
-			      e.printStackTrace();
-			} finally {
-			  DBManager.close(conn, pstmt);
-			}
-	}
+	    String sql = "delete cart where cseq=?";
+	    
+	    Connection conn = null;
+	    PreparedStatement pstmt = null;
+	    
+	    try {
+	      conn = DBManager.getConnection();
+	      pstmt = conn.prepareStatement(sql);
+	      pstmt.setInt(1, cseq);
+	      pstmt.executeUpdate();
+	    } catch (Exception e) {
+	      e.printStackTrace();
+	    } finally {
+	      DBManager.close(conn, pstmt);
+	    }
+	  }
 }
