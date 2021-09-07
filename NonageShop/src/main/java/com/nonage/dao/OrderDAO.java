@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 
 import com.nonage.dto.CartVO;
+import com.nonage.dto.OrderVO;
 
 import util.DBManager;
 
@@ -72,5 +73,45 @@ public class OrderDAO {
 			} finally {
 			  DBManager.close(conn, pstmt);
 			}	
+	}
+	public ArrayList<OrderVO> listOrderById(String id, String result, int oseq) {
+		ArrayList<OrderVO> orderList = new ArrayList<OrderVO>();
+		String sql = "select * from order_view where id = ? and result like '%'||?||'%' and oseq = ?";
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+		  conn = DBManager.getConnection();
+	      pstmt = conn.prepareStatement(sql);
+	      pstmt.setString(1, id);
+	      pstmt.setString(2, result);
+	      pstmt.setInt(3, oseq);
+	      rs = pstmt.executeQuery();
+	   
+	      while(rs.next()) {
+	    	  OrderVO orderVO = new OrderVO();
+	    	  orderVO.setOdseq(rs.getInt("odseq"));
+	    	  orderVO.setOseq(rs.getInt("oseq"));
+	    	  orderVO.setId(rs.getString("id"));
+	    	  orderVO.setIndate(rs.getTimestamp("indeate"));
+	    	  orderVO.setMname(rs.getString("mname"));
+	    	  orderVO.setZipNum(rs.getString("zipNum"));
+	    	  orderVO.setAddress(rs.getString("address"));
+	    	  orderVO.setPhone(rs.getString("phone"));
+	    	  orderVO.setPseq(rs.getInt("pseq"));
+	    	  orderVO.setPname(rs.getString("pname"));
+	    	  orderVO.setQuantity(rs.getInt("quantity"));
+	    	  orderVO.setPrice2(rs.getInt("price2"));
+	    	  orderVO.setResult(rs.getString("result"));
+	    	  orderList.add(orderVO);
+	      }
+	      
+		} catch (Exception e) {
+		      e.printStackTrace();
+		} finally {
+		  DBManager.close(conn, pstmt, rs);
+		}	
+		return orderList;
 	}
 }
