@@ -23,8 +23,8 @@
                             <td><fmt:formatNumber value="${orderVO.price2*orderVO.quantity}" type="currency"/></td>
                             <td><fmt:formatDate value="${orderVO.indate}" type="date"/></td>
                             <td>
-                                <c:if test = ${orderVO.result == 1}>처리 진행 중</c:if>
-                                <c:if test = ${orderVO.result == 2}>배송 중</c:if>
+                                <c:if test = "${orderVO.result == '1'}">처리 진행 중</c:if>
+                                <c:if test = "${orderVO.result == '2'}">배송 중</c:if>
                             </td>
                         </tr>
                     </c:forEach>
