@@ -94,9 +94,9 @@ public class OrderDAO {
 	    	  orderVO.setOdseq(rs.getInt("odseq"));
 	    	  orderVO.setOseq(rs.getInt("oseq"));
 	    	  orderVO.setId(rs.getString("id"));
-	    	  orderVO.setIndate(rs.getTimestamp("indeate"));
+	    	  orderVO.setIndate(rs.getTimestamp("indate"));
 	    	  orderVO.setMname(rs.getString("mname"));
-	    	  orderVO.setZipNum(rs.getString("zipNum"));
+	    	  orderVO.setZipNum(rs.getString("zip_num"));
 	    	  orderVO.setAddress(rs.getString("address"));
 	    	  orderVO.setPhone(rs.getString("phone"));
 	    	  orderVO.setPseq(rs.getInt("pseq"));
@@ -113,5 +113,26 @@ public class OrderDAO {
 		  DBManager.close(conn, pstmt, rs);
 		}	
 		return orderList;
+	}
+	public ArrayList<Integer> selectSeqOrderIng(String id) {
+		ArrayList<Integer> oseqList = new ArrayList<Integer>();
+		String sql = "select distinct oseq from order_view where id = ? and result = '1' order by oseq desc"; //distinct중복없이
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			  conn = DBManager.getConnection();
+		      pstmt = conn.prepareStatement(sql);
+		      pstmt.setString(1, id);
+		      rs = pstmt.executeQuery();
+		      while(rs.next()) {
+		    	  oseqList.add(rs.getInt("oseq"));
+		      }
+			} catch (Exception e) {
+			      e.printStackTrace();
+			} finally {
+			  DBManager.close(conn, pstmt, rs);
+			}	
+		return oseqList;
 	}
 }
