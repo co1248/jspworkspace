@@ -12,12 +12,12 @@ import com.nonage.dao.QnaDAO;
 import com.nonage.dto.MemberVO;
 import com.nonage.dto.QnaVO;
 
-public class QnaListAction implements Action {
+public class QnaViewAction implements Action {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String url = "qna/qnaList.jsp";
+		String url = "qna/qnaView.jsp";
 		
 		HttpSession session = request.getSession();
 		MemberVO loginUser = (MemberVO)session.getAttribute("loginUser");
@@ -26,8 +26,8 @@ public class QnaListAction implements Action {
 			url = "NonageServlet?command=login_form";
 		}else {
 			QnaDAO qnaDAO = QnaDAO.getInstance(); 
-			ArrayList<QnaVO> qnaList = qnaDAO.listQna(loginUser.getId());
-			request.setAttribute("qnaList", qnaList);
+			QnaVO qna = qnaDAO.qna(request.getParameter("qseq"));
+			request.setAttribute("qna", qna);
 		}
 		request.getRequestDispatcher(url).forward(request, response);
 	}	

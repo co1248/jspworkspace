@@ -21,6 +21,9 @@ import com.nonage.controller.action.OrderListAction;
 import com.nonage.controller.action.ProductDetailAction;
 import com.nonage.controller.action.ProductKindAction;
 import com.nonage.controller.action.QnaListAction;
+import com.nonage.controller.action.QnaViewAction;
+import com.nonage.controller.action.QnaWriteAction;
+import com.nonage.controller.action.QnaWriteFormAction;
 
 public class ActionFactory {
 	//싱글톤패턴
@@ -81,9 +84,11 @@ public class ActionFactory {
 	    } else if (command.equals("qna_list")) {
 			action = new QnaListAction();
 	    } else if (command.equals("qna_write_form")) {
-			action = new QnaListAction();
+			action = new QnaWriteFormAction();
+	    } else if (command.equals("qna_write")) {
+			action = new QnaWriteAction();
 	    } else if (command.equals("qna_view")) {
-			action = new QnaListAction();
+			action = new QnaViewAction();
 	    }
 
 		return action;
